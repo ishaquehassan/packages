@@ -81,8 +81,14 @@ class VideoPlayer {
     _videoElement.setAttribute('playsinline', true);
 
     _videoElement.onCanPlay.listen(_onVideoElementInitialization);
-    // Needed for Safari iOS 17, which may not send `canplay`.
-    _videoElement.onLoadedMetadata.listen(_onVideoElementInitialization);
+
+    // Working on both iOS 17 safari & Chrome / Firefox
+    _videoElement.addEventListener('loadedmetadata', (_) {
+      // This will do the trick for duration fix
+      _videoElement.currentTime = 1e101;
+      _videoElement.addEventListener(
+          'timeupdate', _onVideoElementInitialization);
+    });
 
     _videoElement.onCanPlayThrough.listen((dynamic _) {
       setBuffering(false);
