@@ -284,9 +284,10 @@ class CameraService {
   }
 
   /// Maps the given [resolutionPreset] to [Size].
-  Size mapResolutionPresetToSize(ResolutionPreset resolutionPreset) {
+  Size? mapResolutionPresetToSize(ResolutionPreset resolutionPreset) {
     switch (resolutionPreset) {
       case ResolutionPreset.max:
+        return null;
       case ResolutionPreset.ultraHigh:
         return const Size(4096, 2160);
       case ResolutionPreset.veryHigh:
